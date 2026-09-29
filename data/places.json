@@ -1,0 +1,17 @@
+{
+  "Tawila": {"admin1": "North Darfur", "admin2": "Tawila", "lat": 13.4400, "lon": 24.3200},
+  "El Fasher": {"admin1": "North Darfur", "admin2": "El Fasher", "lat": 13.6289, "lon": 25.3494},
+  "Kutum": {"admin1": "North Darfur", "admin2": "Kutum", "lat": 14.2000, "lon": 24.6700},
+  "Kabkabiya": {"admin1": "North Darfur", "admin2": "Kebkabiya", "lat": 13.6500, "lon": 24.0800},
+  "Mellit": {"admin1": "North Darfur", "admin2": "Mellit", "lat": 14.1300, "lon": 25.5700},
+  "Kornoi": {"admin1": "North Darfur", "admin2": "Kornoi", "lat": 15.3500, "lon": 24.3500},
+  "Um Baru": {"admin1": "North Darfur", "admin2": "Um Baru", "lat": 15.1200, "lon": 23.8000},
+  "Tine": {"admin1": "North Darfur", "admin2": "Um Baru", "lat": 14.9600, "lon": 22.8700},
+  "Nyala": {"admin1": "South Darfur", "admin2": "Nyala", "lat": 12.0489, "lon": 24.8807},
+  "Kass": {"admin1": "South Darfur", "admin2": "Kass", "lat": 12.5000, "lon": 24.2800},
+  "Ed Daein": {"admin1": "East Darfur", "admin2": "Ed Daein", "lat": 11.4600, "lon": 26.1300},
+  "Geneina": {"admin1": "West Darfur", "admin2": "Geneina", "lat": 13.4500, "lon": 22.4500},
+  "Adre": {"admin1": "West Darfur", "admin2": "Adre", "lat": 13.4667, "lon": 22.2000},
+  "Zalingei": {"admin1": "Central Darfur", "admin2": "Zalingei", "lat": 12.9100, "lon": 23.4700},
+  "Kebkabiya": {"admin1": "North Darfur", "admin2": "Kebkabiya", "lat": 13.6500, "lon": 24.0800}
+}
