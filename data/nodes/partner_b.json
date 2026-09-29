@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "node_id": "partner_b_node",
+    "owner": "Partner Organisation B (simulated)",
+    "license": "Restricted - aggregate signals only, no onward sharing of report contents (simulated)",
+    "sharing_policy": {
+      "name": "count_confidence_only",
+      "description": "Only the number of matching reports, an aggregate confidence level and the latest report date are shared. Report text, exact location and beneficiary counts are withheld by the owner.",
+      "shares": ["count", "confidence", "latest_report_date"]
+    }
+  },
+  "reports": [
+    {"id": "pb-01", "locality": "Tawila", "admin2": "Tawila", "hazard": "displacement", "hours_ago": 26, "exact_location": "Tawila camp, sector 1", "text": "Partner field team observed large arrivals at Tawila from the west; shelter and water are priority gaps.", "beneficiary_count": 280, "confidence": "medium"},
+    {"id": "pb-02", "locality": "Tawila", "admin2": "Tawila", "hazard": "displacement", "hours_ago": 52, "exact_location": "Tawila market road", "text": "Informal settlements growing along the market road.", "beneficiary_count": 150, "confidence": "medium"},
+    {"id": "pb-03", "locality": "Kutum", "admin2": "Kutum", "hazard": "market_shock", "hours_ago": 118, "exact_location": "Kutum market", "text": "Unconfirmed trader report of sharp sorghum price increase.", "beneficiary_count": null, "confidence": "low"},
+    {"id": "pb-04", "locality": "El Fasher", "admin2": "El Fasher", "hazard": "armed_clash", "hours_ago": 28, "exact_location": "El Fasher south", "text": "Multiple sources confirm shelling in the south of the city.", "beneficiary_count": null, "confidence": "high"},
+    {"id": "pb-05", "locality": "Nyala", "admin2": "Nyala", "hazard": "displacement", "hours_ago": 80, "exact_location": "Nyala east", "text": "Small arrivals from Kass district.", "beneficiary_count": 60, "confidence": "medium"},
+    {"id": "pb-06", "locality": "Kabkabiya", "admin2": "Kebkabiya", "hazard": "displacement", "hours_ago": 160, "exact_location": "Kabkabiya town", "text": "Returnees passing through toward Tawila.", "beneficiary_count": 45, "confidence": "low"},
+    {"id": "pb-07", "locality": "Geneina", "admin2": "Geneina", "hazard": "armed_clash", "hours_ago": 40, "exact_location": "Geneina north", "text": "Reports of armed movement north of town.", "beneficiary_count": null, "confidence": "medium"},
+    {"id": "pb-08", "locality": "Mellit", "admin2": "Mellit", "hazard": "disease", "hours_ago": 130, "exact_location": "Mellit clinic", "text": "Clinic staff report rise in acute watery diarrhoea.", "beneficiary_count": 9, "confidence": "medium"},
+    {"id": "pb-09", "locality": "Zalingei", "admin2": "Zalingei", "hazard": "flood", "hours_ago": 300, "exact_location": "Zalingei outskirts", "text": "Flash flooding damaged farmland.", "beneficiary_count": null, "confidence": "low"}
+  ]
+}

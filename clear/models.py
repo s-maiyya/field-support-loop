@@ -31,6 +31,21 @@ class Evidence(BaseModel):
     timestamp: Optional[str] = None
     link: Optional[str] = None
     withheld_fields: list[str] = Field(default_factory=list)
+    node_metadata: Optional[dict] = None  # owner org / license / sharing policy for federated nodes
+    cached: bool = False  # True when built from a cached sample instead of a live call
+
+
+class NodeResponse(BaseModel):
+    """What a federated node returns AFTER applying its own sharing policy."""
+
+    node_id: str
+    owner: str
+    count: int
+    confidence: Optional[str] = None
+    latest_report_date: Optional[str] = None
+    reports: Optional[list[dict]] = None  # None when the policy withholds report contents
+    withheld_fields: list[str] = Field(default_factory=list)
+    metadata: dict = Field(default_factory=dict)
 
 
 class PlaybookAction(BaseModel):
@@ -53,7 +68,9 @@ class Alert(BaseModel):
     trust_breakdown: dict[str, int] = Field(default_factory=dict)
     action: Optional[PlaybookAction] = None
     escalate: bool = False
+    headline: str = ""
     brief_text: str = ""
+    notes: list[str] = Field(default_factory=list)  # warnings, e.g. a source that timed out
     latency_seconds: float = 0.0
     step_timings: dict[str, float] = Field(default_factory=dict)
 

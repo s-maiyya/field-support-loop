@@ -1,0 +1,52 @@
+[
+  {
+    "id": "nfi_release",
+    "name": "Release pre-positioned NFI/shelter kits",
+    "hazards": ["displacement"],
+    "min_trust": 70,
+    "min_severity": 2,
+    "cost_band_eur": [14000, 22000],
+    "approver_level": "country_director",
+    "message_template": "ACTION: Release pre-positioned NFI/shelter kits to {location} ({admin2}). Reported scale: {people}. Needs stated: {needs}. Approved by {approver}."
+  },
+  {
+    "id": "cash_topup",
+    "name": "Emergency multipurpose cash top-up",
+    "hazards": ["market_shock"],
+    "min_trust": 75,
+    "min_severity": 3,
+    "cost_band_eur": [5000, 15000],
+    "approver_level": "field",
+    "message_template": "ACTION: Trigger emergency multipurpose cash top-up for households in {location} ({admin2}) affected by market price shock. Approved by {approver}."
+  },
+  {
+    "id": "sms_warning",
+    "name": "Send SMS early warning to community focal points",
+    "hazards": ["armed_clash", "fire_burning", "flood", "disease"],
+    "min_trust": 60,
+    "min_severity": 2,
+    "cost_band_eur": [200, 800],
+    "approver_level": "field",
+    "message_template": "SMS to focal points in {location}: early warning of {hazard}. Stay alert, avoid affected areas and report to your NRC focal point. Approved by {approver}."
+  },
+  {
+    "id": "market_monitoring",
+    "name": "Request market monitoring visit",
+    "hazards": ["market_shock"],
+    "min_trust": 40,
+    "min_severity": 1,
+    "cost_band_eur": [500, 1500],
+    "approver_level": "field",
+    "message_template": "REQUEST: Market monitoring visit to {location} ({admin2}) to verify reported price increase. Approved by {approver}."
+  },
+  {
+    "id": "verification_mission",
+    "name": "Request verification mission",
+    "hazards": ["displacement", "armed_clash", "fire_burning", "flood", "disease", "other"],
+    "min_trust": 40,
+    "min_severity": 1,
+    "cost_band_eur": [1500, 4000],
+    "approver_level": "field",
+    "message_template": "REQUEST: Verification mission to {location} ({admin2}) to confirm reported {hazard}. Approved by {approver}."
+  }
+]

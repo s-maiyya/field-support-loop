@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "node_id": "nrc_node",
+    "owner": "Norwegian Refugee Council (NRC) - Sudan field reporting (simulated)",
+    "license": "Internal operational data - shared under full-sharing agreement (simulated)",
+    "sharing_policy": {
+      "name": "full",
+      "description": "Counts, report text, exact location and beneficiary numbers are shared.",
+      "shares": ["count", "confidence", "latest_report_date", "text", "exact_location", "beneficiary_count"]
+    }
+  },
+  "reports": [
+    {"id": "nrc-01", "locality": "Tawila", "admin2": "Tawila", "hazard": "displacement", "hours_ago": 20, "exact_location": "Tawila reception point", "text": "New arrivals registered at the Tawila reception point; families report leaving villages west of El Fasher after attacks.", "beneficiary_count": 310, "confidence": "high"},
+    {"id": "nrc-02", "locality": "Tawila", "admin2": "Tawila", "hazard": "displacement", "hours_ago": 44, "exact_location": "Tawila camp, sector 3", "text": "Water points at Tawila camp over capacity; shelter kits given to first 120 households, remaining stock low.", "beneficiary_count": 120, "confidence": "high"},
+    {"id": "nrc-03", "locality": "El Fasher", "admin2": "El Fasher", "hazard": "armed_clash", "hours_ago": 30, "exact_location": "Southern El Fasher neighbourhoods", "text": "Shelling reported in southern neighbourhoods; access to two clinics interrupted.", "beneficiary_count": null, "confidence": "medium"},
+    {"id": "nrc-04", "locality": "El Fasher", "admin2": "El Fasher", "hazard": "displacement", "hours_ago": 100, "exact_location": "El Fasher outskirts", "text": "Families leaving outer neighbourhoods toward Tawila road.", "beneficiary_count": 80, "confidence": "medium"},
+    {"id": "nrc-05", "locality": "Kabkabiya", "admin2": "Kebkabiya", "hazard": "flood", "hours_ago": 200, "exact_location": "Wadi Kabkabiya", "text": "Seasonal wadi flooding damaged two water points; no displacement reported.", "beneficiary_count": 40, "confidence": "medium"},
+    {"id": "nrc-06", "locality": "Nyala", "admin2": "Nyala", "hazard": "market_shock", "hours_ago": 60, "exact_location": "Nyala central market", "text": "Sorghum and millet prices up roughly 15 percent versus last month.", "beneficiary_count": null, "confidence": "medium"},
+    {"id": "nrc-07", "locality": "Mellit", "admin2": "Mellit", "hazard": "disease", "hours_ago": 150, "exact_location": "Mellit health facility", "text": "Suspected cholera cases reported at the health facility; samples sent for testing.", "beneficiary_count": 12, "confidence": "medium"},
+    {"id": "nrc-08", "locality": "Geneina", "admin2": "Geneina", "hazard": "fire_burning", "hours_ago": 90, "exact_location": "Geneina periphery", "text": "Smoke and burning reported at farms on the town periphery.", "beneficiary_count": null, "confidence": "low"},
+    {"id": "nrc-09", "locality": "Kutum", "admin2": "Kutum", "hazard": "displacement", "hours_ago": 240, "exact_location": "Kutum town", "text": "Small group of families arrived from rural areas; no urgent needs flagged.", "beneficiary_count": 25, "confidence": "medium"},
+    {"id": "nrc-10", "locality": "Adre", "admin2": "Adre", "hazard": "displacement", "hours_ago": 72, "exact_location": "Adre transit centre", "text": "Ongoing cross-border movement; transit centre at about 80 percent capacity.", "beneficiary_count": 500, "confidence": "high"}
+  ]
+}

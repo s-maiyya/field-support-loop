@@ -3,10 +3,9 @@ import json
 import re
 from pathlib import Path
 
-from openai import OpenAI
 from pydantic import ValidationError
 
-from . import config
+from . import llm
 from .models import Signal
 
 PLACES = json.loads((Path(__file__).resolve().parent.parent / "data" / "places.json").read_text())
@@ -31,16 +30,6 @@ Rules:
 - "displacement" = people arriving/fleeing/moving; "armed_clash" = fighting/attacks; "fire_burning" = burning/fires; "market_shock" = prices/market disruption.
 """
 
-_client = None
-
-
-def _get_client() -> OpenAI:
-    global _client
-    if _client is None:
-        _client = OpenAI(api_key=config.NEBIUS_API_KEY, base_url=config.NEBIUS_BASE_URL, timeout=config.TIMEOUT)
-    return _client
-
-
 def _norm(s: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"[^\w\s]", "", s.lower())).strip()
 
@@ -57,22 +46,7 @@ def resolve_place(name):
 
 
 def _call_llm(transcript: str, extra: str = "") -> dict:
-    kwargs = dict(
-        model=config.NEBIUS_MODEL,
-        temperature=0,
-        max_tokens=800,
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT + extra},
-            {"role": "user", "content": f"Transcript:\n\"\"\"\n{transcript}\n\"\"\""},
-        ],
-    )
-    try:
-        r = _get_client().chat.completions.create(response_format={"type": "json_object"}, **kwargs)
-    except Exception:  # model may not support JSON mode -> plain call
-        r = _get_client().chat.completions.create(**kwargs)
-    text = r.choices[0].message.content.strip()
-    m = re.search(r"\{.*\}", text, re.S)
-    return json.loads(m.group(0) if m else text)
+    return llm.chat_json(SYSTEM_PROMPT + extra, f"Transcript:\n\"\"\"\n{transcript}\n\"\"\"", max_tokens=800)
 
 
 def _enforce_quotes(raw: dict, transcript: str) -> dict:
