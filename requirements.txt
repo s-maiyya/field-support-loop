@@ -1,0 +1,10 @@
+streamlit
+openai
+tavily-python
+elevenlabs
+requests
+pandas
+folium
+streamlit-folium
+python-dotenv
+pydantic
