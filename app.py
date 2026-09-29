@@ -10,7 +10,7 @@ import folium
 import streamlit as st
 from streamlit_folium import st_folium
 
-from clear import pipeline, playbook, store, tts
+from clear import brief, pipeline, playbook, store, tts
 from clear.models import Alert, Decision
 
 ROOT = Path(__file__).resolve().parent
@@ -61,6 +61,18 @@ def run_or_load(audio_path: Path, key: str, live: bool) -> tuple[Alert, bool]:
     return alert, False
 
 
+def apply_feedback(alert: Alert) -> Alert:
+    """Re-choose the action with thresholds raised by this session's rejections; refresh the brief if it changes."""
+    adjust = playbook.adjustments(st.session_state.get("rejects", []))
+    action, escalate = playbook.choose(alert.signal, alert.trust_score, adjust)
+    if action.id == (alert.action.id if alert.action else None) and escalate == alert.escalate:
+        return alert
+    note = f"feedback: threshold adjusted from feedback (+{playbook.ADJUSTMENT_POINTS} min trust for {alert.signal.hazard_type} after repeated rejections)"
+    new = alert.model_copy(update={"action": action, "escalate": escalate, "notes": alert.notes + [note]})
+    new.brief_text = brief.write_brief(new)
+    return new
+
+
 def highlight_transcript(transcript: str, quotes: dict) -> str:
     """HTML-escape the transcript, then mark the supporting quotes."""
     out = html.escape(transcript)
@@ -94,6 +106,7 @@ if run_clicked:
     try:
         alert, cached = run_or_load(audio_path, key, live)
         alert = alert.model_copy(update={"alert_id": uuid.uuid4().hex[:8]})  # each run = a new decision item
+        alert = apply_feedback(alert)
         st.session_state.update(alert=alert, cached=cached, shown_at=time.time(), audio=None, decision=None)
         try:
             st.session_state.audio = tts.synthesize(alert.brief_text)
@@ -119,7 +132,10 @@ else:
     if st.session_state.get("cached"):
         st.caption("Cached result – this is the time measured when the note was first processed live. Toggle “Re-run live” to re-measure.")
     for n in alert.notes:
-        st.warning(n)
+        if n.startswith("feedback:"):
+            st.info("🔁 " + n[len("feedback: "):].capitalize())
+        else:
+            st.warning(n)
 
     # 3. alert card
     with st.container(border=True):
@@ -212,6 +228,8 @@ else:
                 decided_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
                 seconds_to_decision=round(time.time() - st.session_state.shown_at, 1),
             )
+            if picked == "reject":
+                st.session_state.setdefault("rejects", []).append({"hazard": s.hazard_type, "reason": reason.strip()})
             try:
                 store.save(d, alert)
             except Exception as e:  # noqa: BLE001
@@ -222,6 +240,24 @@ else:
                 msg = playbook.render_message(alert.action, s, approver=level)
             st.session_state.decision = (d, msg)
             st.rerun()
+
+# Lessons (feedback loop)
+with st.expander("Lessons from rejections (this session)"):
+    rejects = st.session_state.get("rejects", [])
+    adjust = playbook.adjustments(rejects)
+    if not rejects:
+        st.caption("No rejections yet. After 2 rejections of the same hazard, its minimum trust threshold rises by "
+                   f"{playbook.ADJUSTMENT_POINTS} points for the rest of the session.")
+    else:
+        by_hazard = {}
+        for r in rejects:
+            by_hazard.setdefault(r["hazard"], []).append(r["reason"] or "(no reason given)")
+        st.table({
+            "Hazard": list(by_hazard),
+            "Rejections": [len(v) for v in by_hazard.values()],
+            "Reasons": ["; ".join(v) for v in by_hazard.values()],
+            "Threshold": [f"min trust +{adjust[h]} (adjusted from feedback)" if h in adjust else "unchanged" for h in by_hazard],
+        })
 
 # 9. decision log
 st.markdown("##### Decision log")

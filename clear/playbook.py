@@ -1,5 +1,6 @@
 """Pre-approved actions + matching. Order in playbook.json = preference (first passing action wins)."""
 import json
+from collections import Counter
 from pathlib import Path
 
 from .models import PlaybookAction, Signal
@@ -7,6 +8,8 @@ from .models import PlaybookAction, Signal
 PLAYBOOK_PATH = Path(__file__).resolve().parent.parent / "data" / "playbook.json"
 ESCALATION_EUR = 20000
 REQUEST_INFO_BELOW = 40
+REJECTS_FOR_ADJUSTMENT = 2  # rejections of one hazard that trigger the rule
+ADJUSTMENT_POINTS = 10  # min_trust increase for that hazard (not cumulative)
 
 REQUEST_INFO = PlaybookAction(
     id="request_info",
@@ -22,6 +25,12 @@ REQUEST_INFO = PlaybookAction(
 
 def load() -> list[PlaybookAction]:
     return [PlaybookAction(**a) for a in json.loads(PLAYBOOK_PATH.read_text())]
+
+
+def adjustments(rejects: list[dict]) -> dict:
+    """Feedback rule: {hazard: +points} once a hazard has been rejected at least twice (this session)."""
+    counts = Counter(r["hazard"] for r in rejects)
+    return {h: ADJUSTMENT_POINTS for h, n in counts.items() if n >= REJECTS_FOR_ADJUSTMENT}
 
 
 def choose(signal: Signal, trust: int, min_trust_adjust: dict | None = None):
