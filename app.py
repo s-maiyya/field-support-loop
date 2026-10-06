@@ -1,4 +1,4 @@
-"""CLEAR Field Loop - Sudan (prototype). Streamlit UI."""
+"""Field Support Loop (prototype). Streamlit UI."""
 import hashlib
 import html
 import time
@@ -33,8 +33,8 @@ SOURCE_LABELS = {
 BAR_MAX = {"freshness": 25, "agreement": 40, "extraction": 20, "provenance": 15}
 SEVERITY_LABEL = {1: "Low", 2: "Moderate", 3: "High"}
 
-st.set_page_config(page_title="CLEAR Field Loop – Sudan", page_icon="📡", layout="centered")
-st.title("CLEAR Field Loop – Sudan (prototype)")
+st.set_page_config(page_title="Field Support Loop", page_icon="📡", layout="centered")
+st.title("Field Support Loop (prototype)")
 
 
 # ---------- helpers ----------
